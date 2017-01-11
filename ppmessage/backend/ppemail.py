@@ -4,7 +4,7 @@
 # Guijin Ding, dingguijin@gmail.com
 # All rights reserved
 #
-# backend/ppemail.py 
+# backend/ppemail.py
 #
 
 from ppmessage.core.constant import REDIS_HOST
@@ -48,7 +48,7 @@ class MailGunWorker():
            self.from_email == None or self.from_name == None:
             return None
         return email_config
-    
+
     def work(self, email_request):
         _to = email_request.get("to")
         if not isinstance(_to, list):
@@ -72,7 +72,7 @@ class EmailWorker():
     def __init__(self, app):
         self.app = app
         self.service_mapping = {
-            "mailgun": MailGunWorker            
+            "mailgun": MailGunWorker
         }
         return
 
@@ -98,7 +98,7 @@ class PPEmailDelegate():
         self.email_key = REDIS_EMAIL_KEY
         self.email_worker = EmailWorker(self)
         return
-    
+
     def send(self):
         while True:
             _request = self.redis.lpop(self.email_key)
@@ -109,9 +109,9 @@ class PPEmailDelegate():
         return
 
     def run_periodic(self):
-        tornado.ioloop.PeriodicCallback(self.send, 1000).start() 
+        tornado.ioloop.PeriodicCallback(self.send, 1000).start()
         return
-    
+
 class PPEmailWebService(AbstractWebService):
     @classmethod
     def name(cls):
@@ -129,10 +129,10 @@ class PPEmailApp():
     def __init__(self):
         self.redis = redis.Redis(REDIS_HOST, REDIS_PORT, db=1)
         return
-    
+
     def get_delegate(self, name):
         return PPEmailDelegate(self)
-    
+
 def _main():
     tornado.options.parse_command_line()
     _app = PPEmailApp()

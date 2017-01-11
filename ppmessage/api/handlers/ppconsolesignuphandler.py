@@ -47,7 +47,7 @@ class PPConsoleSignupHandler(BaseHandler):
         logging.info(_request)
         self.application.redis.rpush(REDIS_EMAIL_KEY, json.dumps(_request))
         return
-        
+
     def _Task(self):
         super(PPConsoleSignupHandler, self)._Task()
         _request = json.loads(self.request.body)
@@ -58,7 +58,7 @@ class PPConsoleSignupHandler(BaseHandler):
         _app_name = _request.get("app_name")
 
         logging.info(_request)
-        
+
         if _user_email == None or _user_fullname == None or _app_uuid == None or _app_name == None:
             self.setErrorCode(API_ERR.NO_PARA)
             return
@@ -67,7 +67,7 @@ class PPConsoleSignupHandler(BaseHandler):
         if self.application.redis.exists(_key):
             self.setErrorCode(API_ERR.EX_USER)
             return
-        
+
         _request.update({"is_service_user": False, "user_status": USER_STATUS.OWNER_2})
         _user_values = create_user(self.application.redis, _request)
         if _user_values == None:
@@ -82,4 +82,3 @@ class PPConsoleSignupHandler(BaseHandler):
 
         self._send_email(_user_values, _app_values)
         return
-    

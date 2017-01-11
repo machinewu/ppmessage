@@ -76,6 +76,8 @@ from .ppgetuserdetailhandler import PPGetUserDetailHandler
 from .ppconsolelogouthandler import PPConsoleLogoutHandler
 from .ppconsolesignuphandler import PPConsoleSignupHandler
 
+from .ppconsolelogouthandler import PPConsoleLogoutHandler
+
 from .ppconsolegetoverviewnumber import PPConsoleGetOverviewNumber
 from .ppconsolegetrealtimecustomernumber import PPConsoleGetRealTimeCustomerNumber
 from .ppconsolegetrealtimeservicenumber import PPConsoleGetRealTimeServiceNumber

@@ -41,7 +41,7 @@ class PPConsoleSendNewPassword(BaseHandler):
     def initialize(self):
         self.addPermission(api_level=API_LEVEL.PPCONSOLE_BEFORE_LOGIN)
         return
-    
+
     def _Task(self):
         super(PPConsoleSendNewPassword, self)._Task()
         _request = json.loads(self.request.body)
@@ -60,4 +60,3 @@ class PPConsoleSendNewPassword(BaseHandler):
         _user_fullname = self.application.redis.hget(_key, "user_fullname")
         self._send(_user_uuid, _user_email, _user_fullname)
         return
-
